@@ -1,5 +1,7 @@
-# TeamSpeak 5 Channel Image Generator
-**Simple tool 🔨 for generating TeamSpeak 5 channel images 🖼️**
+# TeamSpeak 6 Channel Image Generator
+**Modified from ts5 Channel Image Generator**
+
+**Simple tool 🔨 for generating TeamSpeak 6 channel images 🖼️**
 
 ## ✨ Try it out 
 

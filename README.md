@@ -1,7 +1,11 @@
 # TeamSpeak 6 Channel Image Generator
 **Modified from ts5 Channel Image Generator**
 
+**This clone project adjusts the original spacing to match the updated layout of the TS6 client.**
+**因为ts6的客户端间距变化，此克隆项目修改了原先的间距，使其适应ts6**
 **Simple tool 🔨 for generating TeamSpeak 6 channel images 🖼️**
+
+
 
 ## ✨ Try it out 
 

@@ -6,7 +6,7 @@
 ## ✨ Try it out 
 
 You can make your TeamSpeak server more cool right now!
-Just click [here to use the app](https://asukaaa648.github.io/ts6-channel-image-generator/)! 👈👈
+Just click [here to use the app](https://rin-aki.github.io/ts5-channel-image-generator/)! 👈👈
 
 ![App Preview](https://i.imgur.com/yBZgjlC.gif)
 

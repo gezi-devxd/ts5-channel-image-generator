@@ -1,49 +1,37 @@
-name: Build and Deploy
+name: Deployment
 
-# 触发条件：
-# 1. 推送到 main 分支时
-# 2. 任何针对 main 分支的 PR 被打开、同步或重新打开时
+# 修改点 1: 增加对 pull_request 事件的监听，以便在 PR 时也能运行构建检查
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-    types: [opened, synchronize, reopened]
 
 jobs:
-  build-and-deploy:
+  deploy:
+
     runs-on: ubuntu-latest
 
-    # 使用更现代的 Node.js 版本，如 18.x 或 20.x
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [12.x] # 保持原始版本
 
     steps:
-      # 步骤 1: 拉取代码 (使用更新的 v4 版本)
-      - uses: actions/checkout@v2
-
-      # 步骤 2: 设置 Node.js 环境 (使用更新的 v4 版本)
+      - uses: actions/checkout@v2 # 保持原始版本
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v2 # 保持原始版本
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm' # 缓存 npm 依赖，加快后续构建速度
-
-      # 步骤 3: 安装依赖
-      - name: Install dependencies
+      - name: Install Packages
         run: npm ci
-
-      # 步骤 4: 构建项目
-      # 这个步骤在 push 和 pull_request 事件中都会运行
-      - name: Build
+      - name: Build page
         run: npm run build
-
-      # 步骤 5: 部署到 gh-pages (仅在 push 到 main 分支时运行)
-      - name: Deploy to GitHub Pages
-        # 关键：使用 if 条件判断，确保只在 push 事件时执行部署
+        
+      # 修改点 2: 为部署步骤增加一个 if 条件判断
+      - name: Deploy to gh-pages
+        # 这个条件确保只有在 push 到 main 分支时才执行部署
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3 # 使用更新的 v4 版本
+        uses: peaceiris/actions-gh-pages@v3 # 保持原始版本
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./out

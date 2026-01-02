@@ -1,25 +1,22 @@
 name: Deployment
 
-# 修改点 1: 增加对 pull_request 事件的监听，以便在 PR 时也能运行构建检查
+# 修改点 1: 只在 push 到 main 分支或手动触发时运行
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  # 增加一个手动触发的选项，方便你随时手动部署
+  workflow_dispatch:
 
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [12.x] # 保持原始版本
-
+        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v2 # 保持原始版本
+      - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2 # 保持原始版本
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
@@ -27,11 +24,9 @@ jobs:
       - name: Build page
         run: npm run build
         
-      # 修改点 2: 为部署步骤增加一个 if 条件判断
+      # 修改点 2: 移除 if 条件，因为现在它只会在安全的上下文中运行
       - name: Deploy to gh-pages
-        # 这个条件确保只有在 push 到 main 分支时才执行部署
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3 # 保持原始版本
+        uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./out

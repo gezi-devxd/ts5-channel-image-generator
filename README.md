@@ -7,7 +7,9 @@
 
 **Simple tool 🔨 for generating TeamSpeak 6 channel images 🖼️**
 
-
+git add .
+git commit -m "test: trigger deployment"
+git push origin main
 
 ## ✨ Try it out 
 

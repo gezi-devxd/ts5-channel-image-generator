@@ -17,15 +17,15 @@ jobs:
     # 使用更现代的 Node.js 版本，如 18.x 或 20.x
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [12.x]
 
     steps:
       # 步骤 1: 拉取代码 (使用更新的 v4 版本)
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       # 步骤 2: 设置 Node.js 环境 (使用更新的 v4 版本)
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm' # 缓存 npm 依赖，加快后续构建速度
@@ -43,7 +43,7 @@ jobs:
       - name: Deploy to GitHub Pages
         # 关键：使用 if 条件判断，确保只在 push 事件时执行部署
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v4 # 使用更新的 v4 版本
+        uses: peaceiris/actions-gh-pages@v3 # 使用更新的 v4 版本
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./out
